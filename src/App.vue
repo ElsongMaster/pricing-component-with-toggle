@@ -10,7 +10,7 @@
           type="checkbox"
           name="social"
           @click="cbChange(this)"
-          checked
+          :checked = false
         />
         <i></i>
       </label>
@@ -77,23 +77,23 @@ export default {
       ],
     };
   },
-  // computed:{
-  //   priceCalculated(nbMonth,price){
-  //     return nbMonth*price
-  //   }
-  // },
+  computed:{
+    priceRounded(obj){
+      return obj.price.toFixed(2)
+    }
+  },
   methods: {
     cbChange(obj) {
       // var cb = document.getElementById("cb");
       if (obj.checked) {
         obj.checked = false;
         this.tabCard.forEach((card) => {
-          card.price = Math.round((card.price / 10) * 100) / 100;
+          card.price = Math.floor(card.price / 10)+'.99';
         });
       } else {
         obj.checked = true;
         this.tabCard.forEach((card) => {
-          card.price = Math.round(card.price * 10 * 100) / 100;
+          card.price = Math.floor((card.price * 10))+'.99';
         });
       }
     },
